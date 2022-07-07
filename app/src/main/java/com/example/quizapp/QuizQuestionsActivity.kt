@@ -17,6 +17,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mSelectedOptionPosition: Int = 0
     private var mUserName: String? = null
     private var mCorrectAnswers: Int = 0
+    private var gotAnswer: Boolean = false
 
     private var progressBar: ProgressBar? = null
     private var tvProgress: TextView? = null
@@ -114,22 +115,33 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tv_option_one -> {
-                tvOptionOne?.let { selectedOptionView(it, 1) }
+                if(!gotAnswer) {
+                    tvOptionOne?.let { selectedOptionView(it, 1) }
+                }
             }
             R.id.tv_option_two -> {
-                tvOptionTwo?.let { selectedOptionView(it, 2) }
+                if(!gotAnswer) {
+                    tvOptionTwo?.let { selectedOptionView(it, 2) }
+                }
             }
             R.id.tv_option_three -> {
-                tvOptionThree?.let { selectedOptionView(it, 3) }
+                if(!gotAnswer) {
+                    tvOptionThree?.let { selectedOptionView(it, 3) }
+                }
             }
             R.id.tv_option_four -> {
-                tvOptionFour?.let { selectedOptionView(it, 4) }
+                if(!gotAnswer){
+                    tvOptionFour?.let { selectedOptionView(it, 4) }
+                }
+
             }
             R.id.btn_submit -> {
+
                 if (mSelectedOptionPosition == 0) {
                     mCurrentPosition++
                     when {
                         mCurrentPosition <= mQuestionsList!!.size -> {
+                            gotAnswer = false
                             setQuestion()
                         }
                         else -> {
@@ -144,12 +156,16 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
                 } else {
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
-                    if (question!!.correctAnswer != mSelectedOptionPosition) {
-                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
-                    } else {
+                    if (question!!.correctAnswer == mSelectedOptionPosition) {
+                        gotAnswer = true
                         mCorrectAnswers++
+                    } else {
+                        gotAnswer = true
+                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
                     }
+
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+
                     if (mCurrentPosition == mQuestionsList!!.size) {
                         btnSubmit?.text = "FINISH"
                     } else {
