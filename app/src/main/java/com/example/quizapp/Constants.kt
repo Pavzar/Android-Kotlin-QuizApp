@@ -110,6 +110,8 @@ object Constants {
 
         questionsList.add(que10)
 
+        questionsList.shuffle()
+
         return questionsList
     }
 

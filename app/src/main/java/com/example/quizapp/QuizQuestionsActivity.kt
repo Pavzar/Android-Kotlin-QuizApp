@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
-import org.w3c.dom.Text
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,7 +28,6 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var tvOptionThree: TextView? = null
     private var tvOptionFour: TextView? = null
     private var btnSubmit: Button? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +54,6 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionFour?.setOnClickListener(this)
         btnSubmit?.setOnClickListener(this)
         setQuestion()
-
     }
 
     private fun setQuestion() {
@@ -71,14 +68,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionThree?.text = question.optionThree
         tvOptionFour?.text = question.optionFour
 
-
         if (mCurrentPosition == mQuestionsList!!.size) {
             btnSubmit?.text = "FINISH"
         } else {
             btnSubmit?.text = "SUBMIT"
         }
-
-
     }
 
     private fun defaultOptionsView() {
@@ -101,7 +95,6 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             option.typeface = Typeface.DEFAULT
             option.background = ContextCompat.getDrawable(this, R.drawable.default_option_border_bg)
         }
-
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNum: Int) {
@@ -196,6 +189,4 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-
 }
